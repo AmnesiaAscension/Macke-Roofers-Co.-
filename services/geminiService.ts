@@ -5,11 +5,13 @@ export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    // Initialize GoogleGenAI using the API key from process.env.API_KEY as required by the guidelines.
+    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   }
 
   async getRoofingAdvice(prompt: string): Promise<string> {
     try {
+      // Use ai.models.generateContent with the model name and contents in the same call.
       const response: GenerateContentResponse = await this.ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
@@ -23,6 +25,7 @@ export class GeminiService {
         },
       });
 
+      // Directly access the .text property from the response object as per the SDK documentation.
       return response.text || "I'm sorry, I couldn't process that request right now. Please call us directly for assistance.";
     } catch (error) {
       console.error("Gemini API Error:", error);

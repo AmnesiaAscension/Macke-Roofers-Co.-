@@ -2,7 +2,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Loader2, Bot, Sparkles } from 'lucide-react';
 import { geminiService } from '../services/geminiService';
-import { ChatMessage } from '../types';
+
+// Fix: Defined ChatMessage interface locally since types.ts has been removed.
+interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+}
 
 const GeminiAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
